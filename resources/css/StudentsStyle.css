@@ -1,0 +1,24 @@
+.Body_Institucional {
+    height: 100vh;
+    /* Agrega una imagen de fondo */
+    background-image: url('images/playas.jpg');
+    /* Ajusta el tamaño de la imagen de fondo */
+    background-size: cover;
+    /* Centra la imagen de fondo */
+    background-position: center;
+}
+
+.Header_Institucional {
+    background-color: #00d084;
+    color: #2D3748;
+}
+
+.Footer_Institucional {
+    background-color: #00d084;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
