@@ -11,12 +11,16 @@
     <style>
         /* Estilos adicionales */
         body {
-            height: 100vh;;
+            height: 100vh;
         }
 
         .Header_Institucional {
             background-color: rgb(0, 171, 132);
             color: #fff;
+            display: flex;
+            justify-content: space-between; /* Distribuye los elementos a los lados */
+            padding: 0 20px; /* Añade un poco de espacio a los lados */
+            align-items: center; /* Centra verticalmente */
         }
 
         .Footer_Institucional {
@@ -33,7 +37,17 @@
 
 <body>
     <header class="Header_Institucional py-4">
-        <h1 class="text-3xl text-center">Registro de usuarios</h1>
+        <h1 class="text-3xl">@yield('pagina')</h1>
+        <div>
+            <!-- Botón para dirigirse a la ruta de estudiantes -->
+            <a href="{{ route('estudiantes.index') }}" class="boton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-2 inline-block">Ir a Estudiantes</a>
+
+            <!-- Botón para dirigirse a la ruta de asignaturas -->
+            <a href="{{ route('asignaturas.index') }}" class="boton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-2 inline-block">Ir a Asignaturas</a>
+
+            <!-- Botón para dirigirse al dashboard -->
+            <a href="{{ route('dashboard') }}" class="boton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-2 inline-block">Dashboard</a>
+        </div>
     </header>
     <main class="Main_Instirucional mt-8 px-4">
         @yield('contenido')<!---Indica las partes dinamicas. En este caso es titulo --->

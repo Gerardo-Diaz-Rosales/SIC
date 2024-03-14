@@ -1,49 +1,46 @@
 @extends('plantilla')
 
-@section('titulo')
-    Agregar Usuario
+@section("titulo")
+    Agregar estudiantes
 @endsection
 
 @section('contenido')
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-    <div class="max-w-md mx-auto mt-10 px-4">
-        <form class="shadow-md rounded px-8 pt-6 pb-8 mb-4" action="{{ url('alumnos') }}" method="POST">
-            @csrf
+<form action="{{ route('formulario.store') }}" method="POST" class="container">
+    <h3>Registro de Estudiantes</h3>
+    @csrf
+    <label>Nombre:</label>
+    @error('name_student')
+    <div style="color:red; font-style: italic;">{{$message}}</div>
+    @enderror
+    <input type="text" name="name_student" placeholder="Ingresar nombre" value="{{ old('name_student') }}">
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name_student">
-                    Nombre
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="name_student" placeholder="Nombre" value="{{ old('name_student') }}">
-                @error('name_student')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
-            </div>
+    <label>Apellido:</label>
+    @error('lastname_student')
+    <div style="color:red; font-style: italic;">{{$message}}</div>
+    @enderror
+    <input type="text" name="lastname_student" placeholder="Ingresar apellido" value="{{ old('lastname_student') }}">
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="id_student">
-                    Email
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" name="id_student" placeholder="Email" value="{{ old('id_student') }}">
-                @error('id_student')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
-            </div>
+    <label>Matricula:</label>
+    @error('id_student')
+    <div style="color:red; font-style: italic;">{{$message}}</div>
+    @enderror
+    <input type="text" name="id_student" placeholder="Ingresar matricula" value="{{ old('id_student') }}">
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password_student">
-                    Contraseña
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password_student" placeholder="Contraseña">
-                @error('password_student')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
-            </div>
+    <label>Fecha de nacimiento:</label>
+    @error('birthday')
+    <div style="color:red; font-style: italic;">{{$message}}</div>
+    @enderror
+    <input type="date" name="birthday" placeholder="Ingresar fecha de nacimiento" value="{{ old('birthday') }}">
 
-            <div class="flex items-center justify-between">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Registrar</button>
-            </div>
-        </form>
-    </div>
+    <label>Comentario:</label>
+    @error('comments')
+    <div style="color:red; font-style: italic;">{{$message}}</div>
+    @enderror
+    <textarea name="comments" placeholder="Ingresar comentario">{{ old('comments') }}</textarea>
+
+    <button type="submit" class="shadow-drop-center">Registrar</button>
+    <input type="reset" class="boton">
+</form>
 @endsection

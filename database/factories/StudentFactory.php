@@ -21,7 +21,8 @@ class StudentFactory extends Factory
             'lastname_student' => $this->faker->sentence(2),
             'id_student' => $this->faker->randomNumber(5),
             'birthday' => $this->faker->date(),
-            'comments'=> $this->faker->paragraph()
+            'comments'=> $this->faker->paragraph(),
+            'class' => $this->faker->paragraph(2),
         ];
     }
 }

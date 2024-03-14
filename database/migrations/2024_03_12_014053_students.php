@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name_student');
             $table->string('lastname_student')->nullable();
-            $table->integer('id_student')->unique();
+            $table->string('id_student')->unique();
             $table->date('birthday');
             $table->text('comments')->nullable();
+            $table->string('class');
             $table->timestamps();
         });
     }

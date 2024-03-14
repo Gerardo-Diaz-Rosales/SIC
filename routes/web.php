@@ -5,6 +5,11 @@ use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\SubjectController;
+use Illuminate\Support\Facades\App;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +37,10 @@ Route::get('/register', [StudentController::class, 'index'])->middleware(['auth'
 // Ruta para procesar el formulario de registro de usuarios
 Route::post('/register', [StudentController::class, 'store'])->middleware(['auth', 'verified']);
 
+Route::middleware('auth')->group(function () {
+    Route::resource('estudiantes',StudentController::class);
+});
+
 Route::get('students', function(){
     return view ('students');
 })->Middleware(['auth', 'verified'])->name('students');
@@ -39,12 +48,39 @@ Route::get('students', function(){
 
 Route::get('/admin', function () {
     return view('admin');
-})->middleware(['auth', 'verified'])->name('admin');
+})->middleware(['age', 'verified'])->name('admin');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('formulario', [StudentController::class, 'formulario'])->name('formulario');
+
+Route::post('formulario', [StudentController::class, 'store'])->name('formulario.store');
+
+Route::view('/protegido', 'protegido')->name('protegido');
+
+Route::resource('estudiantes',StudentController::class);
+
+Route::get('/pdf', function(){
+    //$pdf = App::make('dompdf.wrapper');
+    //$pdf = app('dompdf.wrapper');
+
+    $pdf =  PDF::loadView('reports/cardex', [
+        'titulo' => 'este es mi titulo'
+    ]);
+    return $pdf -> stream();
+});
+
+
+
+Route::resource('asignaturas',SubjectController::class);
+Route::get('reportes/{estudiantes}',[ReportsController::class,'print_cardex'])
+->name('print_cardex');
+
+
+
 
 require __DIR__.'/auth.php';
